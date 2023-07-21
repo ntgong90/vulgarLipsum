@@ -1,0 +1,13 @@
+{
+  "name": "nickplusmike",
+  "version": "0.0.1",
+  "description": "First Project with Chad Chai",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ogre": "echo \"ITS OGRE\""
+  },
+  "author": "nick and mike",
+  "license": "ISC"
+}
