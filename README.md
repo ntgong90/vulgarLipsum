@@ -8,10 +8,9 @@
 - Censored version
 
 ## Priority
-- Everything in one file (work on this first)
-- least complex
+- Original version in one file 
+- Multiple files with sorted directories
 - make sure it works
-
 
 ## Front End
 -
