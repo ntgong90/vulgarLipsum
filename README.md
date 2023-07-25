@@ -17,8 +17,7 @@
 - Create buttons for each selection
 - Create paragraph output section
 - Create and edit styling
----strikethrough test---
-<s>tag strikthrough<>
+- <s> test strikethrough
 
 ## Back End Tickets
 - Update index.js to correctly call the DOM
