@@ -12,9 +12,14 @@
 - Multiple files with sorted directories
 - make sure it works
 
-## Front End
--
+## Front End Tickets
+- Center Title
+- Create buttons for each selection
+- Create paragraph output section
+- Create and edit styling
+---strikethrough test---
+<s>tag strikthrough<>
 
-## Back End 
--
+## Back End Tickets
+- Update index.js to correctly call the DOM
 
