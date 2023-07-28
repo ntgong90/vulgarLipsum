@@ -13,18 +13,32 @@ function generateWords(numberOfWords){
 	console.log(outputWords)
 	return outputWords;
 }
-
+//for testing/debugging purposes
 generateWords(20)
 
-//shuffler using Durstenfeld shuffle
-// function shuffleWords(words){
-// 	for(let i = words.length - 1; i > 0; i--){
-// 		const j = Math.floor(Math.random()*(i +1));
-// 		[words[i], words[j]] = [words[j], words[i]];
-// 	}
-// 	console.log(words)
-// 	return words;
-// }
+// function getInputWorldLengthSelection(){
+// 	if(getInputWorldLengthSelection('select-200').checked)
+// 		console.log('second button checked');
+// 	else if (getInputWorldLengthSelection('select-500').checked)
+// 		console.log('thrid button checked');	
+// 	else if(getInputWorldLengthSelection('select-1500').checked)
+// 		console.log('fourth button checked');
+// 	else if (getInputWorldLengthSelection('select-500').checked)
+// 		console.log('fifth button checked');	
+// 	else
+// 		console.log('no button checked')
+// } 
 
-//shuffleWords(vulgarWords)
+//loops through radio buttons defualting to first radio button
+if (document.querySelector('input[name="wordLength"]')) {
+	document.querySelectorAll('input[name="wordLength"]').forEach((element) => {
+	  element.addEventListener("change", function(event) {
+		let item = event.target.value;
+		console.log(item);
+	  });
+	});
+  }
+
+
+
 
