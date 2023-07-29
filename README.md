@@ -4,7 +4,8 @@
 - User clicks button
 - Clipboard pasting button
 - Different categories for list of length of words
-	- Changed to radio buttons
+	- <s>Changed to radio buttons</s>
+	- 
 - Censored version
 
 ## Priority
@@ -14,12 +15,12 @@
 
 ## Front End Tickets
 - Center Title
-- Create buttons for each selection
+- <s>Create buttons for each selection</s>
 	- Update radio buttons to only have one selected
 	- <s>Create action button for user to generate text
-- <s>Create paragraph output section
+- <s>Create paragraph output section</s>
 - Create and edit styling
-- <s>test strikethrough
+- <s>test strikethrough</s>
 
 ## Back End Tickets
 - Update index.js to correctly call the DOM

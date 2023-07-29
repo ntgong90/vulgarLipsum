@@ -17,39 +17,96 @@
 					<!--<strong> tag usually bolds text-->
 					<td>
 						<label>
-							<input type='radio' name='wordLength' value='select-50' checked/>
+							<input type='radio' id='0-50' name='wordLength' value='select-50' checked/>
 							<span>0-50</span>
 						</label>
 						<label>
-							<input type='radio' name='wordLength' value='select-200' />
+							<input type='radio' id='51-200' name='wordLength' value='select-200' />
 							<span>51-200</span>
 						</label>
 						<label>
-							<input type='radio' name='wordLength' value='select-500' />
+							<input type='radio' id='201-500' name='wordLength' value='select-500' />
 							<span>201-500</span>
 						</label>
 						<label>
-							<input type='radio' name='wordLength' value='select-1500' />
+							<input type='radio' id='501-1500' name='wordLength' value='select-1500' />
 							<span>501-1500</span>
 						</label>
 						<label>
-							<input type='radio' name='wordLength' value='select-plus' />
+							<input type='radio'  id='plus' name='wordLength' value='select-plus' />
 							<span>1500+</span>
 						</label>
 					</td>
 				</tr>
 				<tr>
-					<td><button type="button">Generate</button></td>
+					<td><button type="button" onclick="random()">Generate</button></td>
+					<td><button type="button" onclick="clearOutputText()">Clear</button></td>
 				</tr>
 				<tr>
-					<td><strong>Sample Text box</strong></td>
-					<td><textarea placeholder="Lorem Ipsum Fuck You.." id="" style="width:30em; height:5em"></textarea></td>
+					<td><strong>Output Text</strong></td>
+					<td><textarea placeholder="Lorem Ipsum Fuck You.." id="outputText" style="width:30em; height:5em"></textarea></td>
+
 				</tr>
 			</tbody>
 		</table>
+		<!-- <script type="application/javscript" src="index.js"></script>
+		THIS LINE WILL REFERENCE INDEX.JS
+		-->
+		<script>
+			const title = document.querySelector('body > h1');
+			let numberOfOutputWords = 0;
+			let emptryString = '';
+			console.log(title.innerText);
+
+			function numberInterval(min, max){
+				return Math.floor(Math.random() * (max - min + 1) + min);
+			}
+
+			const vulgarWords = ['fuck you', 'bitch','cunt','motherfucker','shitstain','ogre','limpdick','gumby','paperhanded bitch','ass whipe', 'plonker'],
+				censoredWords = ['f**k you', 'b**ch','cunt','motherf***er','sh**stain','ogre','limpd**k','gumby','paperhanded b**ch','a*s whipe', 'plonker'],
+				  outputWords = [];
+
+			function generateWords(numberOfWords){
+				for(let i = 0; i < numberOfWords; i++){
+					let randomIndex = Math.floor(Math.random()*vulgarWords.length);
+					outputWords.push(vulgarWords[randomIndex]);
+				}
+				return outputWords.join(' ');
+			}
+
+			function random(){
+				if(document.getElementById('0-50').checked){
+					numberOfOutputWords = generateWords(numberInterval(0,50));
+					outputText.innerText = numberOfOutputWords;
+				  } 
+				else if(document.getElementById('51-200').checked){
+				numberOfOutputWords = generateWords(numberInterval(51,200));
+				outputText.innerText = numberOfOutputWords;
+				} 
+				else if(document.getElementById('201-500').checked){
+					numberOfOutputWords = generateWords(numberInterval(201,500));
+					outputText.innerText = numberOfOutputWords;
+				  } 
+				else if(document.getElementById('501-1500').checked){
+					numberOfOutputWords = generateWords(numberInterval(501,1500));
+					outputText.innerText = numberOfOutputWords;
+				} 
+				else if(document.getElementById('plus').checked){
+					numberOfOutputWords = generateWords(numberInterval(1500,3000));
+					outputText.innerText = numberOfOutputWords;
+					} 
+				else{
+					outputText.innerText = '';
+				}
+
+			}
+
+			function clearOutputText(){
+				document.querySelector('#outputText').innerHTML = '';
+			}
+
+		</script>
 
 
-
-		<script type="application/javscript" src="index.js"></script>
 	</body>
 </html>
