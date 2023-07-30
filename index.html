@@ -44,10 +44,12 @@
 				</tr>
 				<tr>
 					<td><strong>Output Text</strong></td>
-					<td><textarea placeholder="Lorem Ipsum Fuck You.." id="outputText" style="width:30em; height:5em"></textarea></td>
+					<td><textarea placeholder="Lorem Ipsum Fuck You.." id="outputText" style="width:900px; height:1500px"></textarea></td>
 
 				</tr>
 			</tbody>
+			<div id="asdf"></div>
+
 		</table>
 		<!-- <script type="application/javscript" src="index.js"></script>
 		THIS LINE WILL REFERENCE INDEX.JS
@@ -61,12 +63,12 @@
 			function numberInterval(min, max){
 				return Math.floor(Math.random() * (max - min + 1) + min);
 			}
-
+			//VARIABLE SCOPE VERY IMPORTANT
 			const vulgarWords = ['fuck you', 'bitch','cunt','motherfucker','shitstain','ogre','limpdick','gumby','paperhanded bitch','ass whipe', 'plonker'],
-				censoredWords = ['f**k you', 'b**ch','cunt','motherf***er','sh**stain','ogre','limpd**k','gumby','paperhanded b**ch','a*s whipe', 'plonker'],
-				  outputWords = [];
-
+				censoredWords = ['f**k you', 'b**ch','cunt','motherf***er','sh**stain','ogre','limpd**k','gumby','paperhanded b**ch','a*s whipe', 'plonker'];
+				  
 			function generateWords(numberOfWords){
+				const outputWords = [];
 				for(let i = 0; i < numberOfWords; i++){
 					let randomIndex = Math.floor(Math.random()*vulgarWords.length);
 					outputWords.push(vulgarWords[randomIndex]);
@@ -75,9 +77,11 @@
 			}
 
 			function random(){
+				outputText.innerHTML = '';
 				if(document.getElementById('0-50').checked){
 					numberOfOutputWords = generateWords(numberInterval(0,50));
 					outputText.innerText = numberOfOutputWords;
+					console.log(numberOfOutputWords)
 				  } 
 				else if(document.getElementById('51-200').checked){
 				numberOfOutputWords = generateWords(numberInterval(51,200));
