@@ -3,19 +3,90 @@
 	<!-- <link rel="stylesheet" href="assets/css/style.css"> -->
 	<head>
 		<meta charset="UTF-8">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300&display=swap" rel="stylesheet">
 		<title>Lorem ipsum Generator</title>
-		<style>
+		<!-- CSS styling here -->
+		<style type="text/css">
+			body{
+				background-color: #3EBFBB;
+			}
+			html {
+
+			}
+			h1 {
+				font-family: 'Nunito Sans', sans-serif;
+				text-align: center;
+				letter-spacing: 1px;
+				font-weight: bolder;
+				color:#505050;
+			}
+			table {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+			#selection{
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				align-content: space-evenly;
+			}
+			#navigationButtons{
+				display: flex;
+				justify-content: center;
+				margin: 0.5em;
+			}
+			#outputText{
+				display: flex;
+				font-size: medium;
+				font-family: 'Nunito Sans', sans-serif;
+				color: #505050;
+				border-radius: 10px;
+				padding: 1em;
+				background-color: #9DD5D4;
+				height: 70%;
+				overflow: auto;
+			}
+			#wordLength{
+				color:#505050;
+				text-transform: uppercase;
+				letter-spacing:1px;
+			}
+			#radioButtons{
+				border-radius: 5px;
+				font-family: 'Nunito Sans', sans-serif;
+				font-weight: bold;
+				color:#089489;
+				margin: 0.5em;
+			}
+			button{
+				background-color: #9DD5D4;
+				border-radius: 5px;
+				border: 2px #089489;
+				font-family: 'Nunito Sans', sans-serif;
+				font-size: large;
+				margin: 0.5em;
+			}
+			input[type='radio']:checked:after {
+				accent-color: red;
+			}
+			/* this doesn't work...*/
 
 		</style>
 	</head>
 	<body>
-		<h1>Lorem ipsum Fuck You</h1>
-		<table>
+		<h1>Vulgar Lipsum</h1>
+		<table id="table">
 			<tbody>
-				<tr>
-					<td><strong>Word Length:</strong></td> 
-					<!--<strong> tag usually bolds text-->
-					<td>
+				<tr id='selection'>
+					<td id='wordLength'>
+						<div >
+							<strong> Word Length: </strong>
+						</div></td> 
+
+					<td id="radioButtons">
 						<label>
 							<input type='radio' id='0-50' name='wordLength' value='select-50' checked/>
 							<span>0-50</span>
@@ -38,22 +109,20 @@
 						</label>
 					</td>
 				</tr>
-				<tr>
+				<tr id='navigationButtons'>
 					<td><button type="button" onclick="random()">Generate</button></td>
 					<td><button type="button" onclick="clearOutputText()">Clear</button></td>
+					<td><button type="button" onclick="copyText()">Copy to Clipboard</button></td>
 				</tr>
-				<tr>
-					<td><strong>Output Text</strong></td>
-					<td><textarea placeholder="Lorem Ipsum Fuck You.." id="outputText" style="width:900px; height:1500px"></textarea></td>
+				<tr id="outputBox">
+					<td id="outputText" style="width:75em; height:50em">Lorem ipsum motherfu..</td>
 
 				</tr>
 			</tbody>
 			<div id="asdf"></div>
 
 		</table>
-		<!-- <script type="application/javscript" src="index.js"></script>
-		THIS LINE WILL REFERENCE INDEX.JS
-		-->
+		<!-- Javscript below -->
 		<script>
 			const title = document.querySelector('body > h1');
 			let numberOfOutputWords = 0;
@@ -77,15 +146,13 @@
 			}
 
 			function random(){
-				outputText.innerHTML = '';
 				if(document.getElementById('0-50').checked){
 					numberOfOutputWords = generateWords(numberInterval(0,50));
 					outputText.innerText = numberOfOutputWords;
-					console.log(numberOfOutputWords)
 				  } 
 				else if(document.getElementById('51-200').checked){
-				numberOfOutputWords = generateWords(numberInterval(51,200));
-				outputText.innerText = numberOfOutputWords;
+					numberOfOutputWords = generateWords(numberInterval(51,200));
+					outputText.innerText = numberOfOutputWords;
 				} 
 				else if(document.getElementById('201-500').checked){
 					numberOfOutputWords = generateWords(numberInterval(201,500));
@@ -104,10 +171,17 @@
 				}
 
 			}
-
 			function clearOutputText(){
-				document.querySelector('#outputText').innerHTML = '';
+				document.querySelector('#outputText').innerHTML = 'Lorem ipsum motherfu..';
 			}
+
+			function copyText (){
+				let copiedText = document.getElementById('outputText').innerText;
+				console.log(copiedText)
+				navigator.clipboard.writeText(copiedText);
+				alert('Copied: ' + copiedText);
+			}
+
 
 		</script>
 
