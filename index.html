@@ -12,9 +12,6 @@
 			body{
 				background-color: #3EBFBB;
 			}
-			html {
-
-			}
 			h1 {
 				font-family: 'Nunito Sans', sans-serif;
 				text-align: center;
@@ -27,7 +24,7 @@
 				align-items: center;
 				justify-content: center;
 			}
-			#selection{
+			#selection, #dropDown{
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -49,7 +46,7 @@
 				height: 70%;
 				overflow: auto;
 			}
-			#wordLength{
+			#wordLength, #dropDownTitle{
 				color:#505050;
 				text-transform: uppercase;
 				letter-spacing:1px;
@@ -69,10 +66,29 @@
 				font-size: large;
 				margin: 0.5em;
 			}
-			input[type='radio']:checked:after {
-				accent-color: red;
+			#selectionDropDown, .tobeSelected{
+				background-color: #9DD5D4;
+				border-radius: 5px;
+				border: 2px #089489;
+				font-family: 'Nunito Sans', sans-serif;
+				font-weight: bold;
+				font-size:large;
+				margin: 0.5em;
+				color:#089489;
 			}
-			/* this doesn't work...*/
+			::-webkit-scrollbar{
+				width: 10px;
+			}
+			::-webkit-scrollbar-track {
+				background: #f1f1f1;
+			}
+			::-webkit-scrollbar-thumb {
+				background: #089489;
+			}
+			::-webkit-scrollbar-thumb:hover {
+				background: #089489;
+			}
+
 
 		</style>
 	</head>
@@ -80,13 +96,14 @@
 		<h1>Vulgar Lipsum</h1>
 		<table id="table">
 			<tbody>
-				<tr id='selection'>
+				<!-- <tr id='selection'>
 					<td id='wordLength'>
 						<div >
 							<strong> Word Length: </strong>
-						</div></td> 
-
-					<td id="radioButtons">
+						</div>
+					</td>  -->
+					<!-- Radio Button List -->
+					<!-- <td id="radioButtons">
 						<label>
 							<input type='radio' id='0-50' name='wordLength' value='select-50' checked/>
 							<span>0-50</span>
@@ -108,15 +125,33 @@
 							<span>1500+</span>
 						</label>
 					</td>
+				</tr> -->
+
+				<tr id='dropDown'>
+					<td>
+						<form id="dropDownForm">
+							<label for='selectionDropDown' id="dropDownTitle">
+								<strong> Word Count: </strong>
+							</label>
+							<select id="selectionDropDown" name="wordDropDownList">
+								<option class='tobeSelected' id="selection-0-50" value='1'>0-50</option>
+								<option class='tobeSelected' id="selection-51-200" value='2'>51-200</option>
+								<option class='tobeSelected' id="selection-201-500" value='3'>201-500</option>
+								<option class='tobeSelected' id="selection-501-1500" value='4'>501-1500</option>
+								<option class='tobeSelected' id="selection-plus" value='5'>1500+</option>
+							</select>
+						</form>
+					</td>
 				</tr>
+
 				<tr id='navigationButtons'>
-					<td><button type="button" onclick="random()">Generate</button></td>
+					<!-- <td><button type="button" onclick="randomRadioButtons()">Generate</button></td> -->
+					<td><button type="button" onclick="randomDropDown()">Generate</button></td>
 					<td><button type="button" onclick="clearOutputText()">Clear</button></td>
 					<td><button type="button" onclick="copyText()">Copy to Clipboard</button></td>
 				</tr>
 				<tr id="outputBox">
 					<td id="outputText" style="width:75em; height:50em">Lorem ipsum motherfu..</td>
-
 				</tr>
 			</tbody>
 			<div id="asdf"></div>
@@ -144,8 +179,35 @@
 				}
 				return outputWords.join(' ');
 			}
+			//function for Drop-down list
+			function randomDropDown(){
+				if(document.getElementById('selection-0-50').selected){
+					numberOfOutputWords = generateWords(numberInterval(0,50));
+					outputText.innerText = numberOfOutputWords;
+				  } 
+				else if(document.getElementById('selection-51-200').selected){
+					numberOfOutputWords = generateWords(numberInterval(51,200));
+					outputText.innerText = numberOfOutputWords;
+				} 
+				else if(document.getElementById('selection-201-500').selected){
+					numberOfOutputWords = generateWords(numberInterval(201,500));
+					outputText.innerText = numberOfOutputWords;
+				  } 
+				else if(document.getElementById('selection-501-1500').selected){
+					numberOfOutputWords = generateWords(numberInterval(501,1500));
+					outputText.innerText = numberOfOutputWords;
+				} 
+				else if(document.getElementById('selection-plus').selected){
+					numberOfOutputWords = generateWords(numberInterval(1500,3000));
+					outputText.innerText = numberOfOutputWords;
+				} 
+				else{
+					outputText.innerText = '';
+				}
 
-			function random(){
+			}
+			//function for Radio button selection
+			function randomRadioButtons(){
 				if(document.getElementById('0-50').checked){
 					numberOfOutputWords = generateWords(numberInterval(0,50));
 					outputText.innerText = numberOfOutputWords;
@@ -169,17 +231,18 @@
 				else{
 					outputText.innerText = '';
 				}
-
 			}
+
+
+
 			function clearOutputText(){
 				document.querySelector('#outputText').innerHTML = 'Lorem ipsum motherfu..';
 			}
-
+			//copies text to clipboard
 			function copyText (){
 				let copiedText = document.getElementById('outputText').innerText;
-				console.log(copiedText)
 				navigator.clipboard.writeText(copiedText);
-				alert('Copied: ' + copiedText);
+				alert('Copied to Clipboard');
 			}
 
 
