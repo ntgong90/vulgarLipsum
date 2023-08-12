@@ -24,7 +24,7 @@
 				align-items: center;
 				justify-content: center;
 			}
-			#selection, #dropDown{
+			#selection, #dropDown, #checkMarkBox{
 				display: flex;
 				align-items: center;
 				justify-content: center;
@@ -46,7 +46,7 @@
 				height: 70%;
 				overflow: auto;
 			}
-			#wordLength, #dropDownTitle{
+			#wordLength, #dropDownTitle, #censoredTitle{
 				color:#505050;
 				text-transform: uppercase;
 				letter-spacing:1px;
@@ -80,7 +80,7 @@
 				width: 10px;
 			}
 			::-webkit-scrollbar-track {
-				background: #f1f1f1;
+				background: #505050;
 			}
 			::-webkit-scrollbar-thumb {
 				background: #089489;
@@ -88,7 +88,49 @@
 			::-webkit-scrollbar-thumb:hover {
 				background: #089489;
 			}
-
+			.switch {
+				display: inline-block;
+				height: 18px;
+				position: relative;
+				width: 34px;
+				margin-left:2px;
+				margin-top:4px;
+			  }
+			  .switch input {
+				display:none;
+			  }
+			  .slider {
+				background-color: #505050;
+				bottom: 0;
+				cursor: pointer;
+				left: 0;
+				position: absolute;
+				right: 0;
+				top: 0;
+				transition: .4s;
+			  }
+			  .slider:before {
+				background-color: #9DD5D4;
+				bottom: 2px;
+				content: "";
+				height: 15px;
+				left: 2px;
+				position: absolute;
+				transition: .4s;
+				width: 15px;
+			  }
+			  input:checked + .slider {
+				background-color: #089489;
+			  }
+			  input:checked + .slider:before {
+				transform: translateX(15px);
+			  }
+			  .slider.round {
+				border-radius: 15px;
+			  }
+			  .slider.round:before {
+				border-radius: 50%;
+			  }
 
 		</style>
 	</head>
@@ -96,37 +138,6 @@
 		<h1>Vulgar Lipsum</h1>
 		<table id="table">
 			<tbody>
-				<!-- <tr id='selection'>
-					<td id='wordLength'>
-						<div >
-							<strong> Word Length: </strong>
-						</div>
-					</td>  -->
-					<!-- Radio Button List -->
-					<!-- <td id="radioButtons">
-						<label>
-							<input type='radio' id='0-50' name='wordLength' value='select-50' checked/>
-							<span>0-50</span>
-						</label>
-						<label>
-							<input type='radio' id='51-200' name='wordLength' value='select-200' />
-							<span>51-200</span>
-						</label>
-						<label>
-							<input type='radio' id='201-500' name='wordLength' value='select-500' />
-							<span>201-500</span>
-						</label>
-						<label>
-							<input type='radio' id='501-1500' name='wordLength' value='select-1500' />
-							<span>501-1500</span>
-						</label>
-						<label>
-							<input type='radio'  id='plus' name='wordLength' value='select-plus' />
-							<span>1500+</span>
-						</label>
-					</td>
-				</tr> -->
-
 				<tr id='dropDown'>
 					<td>
 						<form id="dropDownForm">
@@ -140,12 +151,25 @@
 								<option class='tobeSelected' id="selection-501-1500" value='4'>501-1500</option>
 								<option class='tobeSelected' id="selection-plus" value='5'>1500+</option>
 							</select>
+
 						</form>
+					</td>
+					<td>
+						<label for='censoredCheck' id="censoredTitle">
+							<strong> Censored </strong>
+						</label>
+					</td>
+					<td>
+						<div class="container">
+							<label class="switch" for="censoredCheck">
+							  <input type="checkbox" id="censoredCheck" />
+							  <div class="slider round"></div>
+							</label>
+						  </div>
 					</td>
 				</tr>
 
 				<tr id='navigationButtons'>
-					<!-- <td><button type="button" onclick="randomRadioButtons()">Generate</button></td> -->
 					<td><button type="button" onclick="randomDropDown()">Generate</button></td>
 					<td><button type="button" onclick="clearOutputText()">Clear</button></td>
 					<td><button type="button" onclick="copyText()">Copy to Clipboard</button></td>
@@ -167,6 +191,15 @@
 			function numberInterval(min, max){
 				return Math.floor(Math.random() * (max - min + 1) + min);
 			}
+
+			function makesParagraphs(listOfWords){
+				const chunkedArray = [];
+					for(let i = 0; i< listOfWords.length; i+= 150){
+						const chunk = listOfWords.slice(i, i + 150)
+						chunkedArray.push(chunk);
+					}
+				return chunkedArray.map(wordGroup => wordGroup.join(' '));
+			}
 			//VARIABLE SCOPE VERY IMPORTANT
 			const vulgarWords = ['fuck you', 'bitch','cunt','motherfucker','shitstain','ogre','limpdick','gumby','paperhanded bitch','ass whipe', 'plonker'],
 				censoredWords = ['f**k you', 'b**ch','cunt','motherf***er','sh**stain','ogre','limpd**k','gumby','paperhanded b**ch','a*s whipe', 'plonker'];
@@ -174,37 +207,56 @@
 			function generateWords(numberOfWords){
 				const outputWords = [];
 				for(let i = 0; i < numberOfWords; i++){
-					let randomIndex = Math.floor(Math.random()*vulgarWords.length);
-					outputWords.push(vulgarWords[randomIndex]);
+					if(document.getElementById('censoredCheck').checked){
+						let randomIndex = Math.floor(Math.random()*censoredWords.length);
+						outputWords.push(censoredWords[randomIndex]);
+					}
+					else{
+						let randomIndex = Math.floor(Math.random()*vulgarWords.length);
+						outputWords.push(vulgarWords[randomIndex]);
+					}
 				}
 				return outputWords.join(' ');
 			}
 			//function for Drop-down list
 			function randomDropDown(){
 				if(document.getElementById('selection-0-50').selected){
+					console.log(document.getElementById('censoredCheck').checked)
 					numberOfOutputWords = generateWords(numberInterval(0,50));
 					outputText.innerText = numberOfOutputWords;
 				  } 
 				else if(document.getElementById('selection-51-200').selected){
 					numberOfOutputWords = generateWords(numberInterval(51,200));
+					if(numberOfOutputWords.split(' ').length > 150){
+						numberOfOutputWords = makesParagraphs(numberOfOutputWords.split(' ')).join('\n\n');
+					}
+					console.log(numberOfOutputWords)
 					outputText.innerText = numberOfOutputWords;
 				} 
 				else if(document.getElementById('selection-201-500').selected){
 					numberOfOutputWords = generateWords(numberInterval(201,500));
+					if(numberOfOutputWords.split(' ').length > 150){
+						numberOfOutputWords = makesParagraphs(numberOfOutputWords.split(' ')).join('\n\n');
+					}
 					outputText.innerText = numberOfOutputWords;
 				  } 
 				else if(document.getElementById('selection-501-1500').selected){
 					numberOfOutputWords = generateWords(numberInterval(501,1500));
+					if(numberOfOutputWords.split(' ').length > 150){
+						numberOfOutputWords = makesParagraphs(numberOfOutputWords.split(' ')).join('\n\n');
+					}
 					outputText.innerText = numberOfOutputWords;
 				} 
 				else if(document.getElementById('selection-plus').selected){
 					numberOfOutputWords = generateWords(numberInterval(1500,3000));
+					if(numberOfOutputWords.split(' ').length > 150){
+						numberOfOutputWords = makesParagraphs(numberOfOutputWords.split(' ')).join('\n\n');
+					}
 					outputText.innerText = numberOfOutputWords;
 				} 
 				else{
 					outputText.innerText = '';
 				}
-
 			}
 			//function for Radio button selection
 			function randomRadioButtons(){
@@ -232,9 +284,7 @@
 					outputText.innerText = '';
 				}
 			}
-
-
-
+			//clears randomly generated text
 			function clearOutputText(){
 				document.querySelector('#outputText').innerHTML = 'Lorem ipsum motherfu..';
 			}
@@ -244,10 +294,6 @@
 				navigator.clipboard.writeText(copiedText);
 				alert('Copied to Clipboard');
 			}
-
-
 		</script>
-
-
 	</body>
 </html>
