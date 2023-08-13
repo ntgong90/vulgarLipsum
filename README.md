@@ -26,6 +26,7 @@
 - ~~Bug when selecting word length beyond what the div size can handle~~
 - ~~Update scroll bar color/style~~
 - ~~Paragragph separation in the text output~~
+- Add media query for dynamic sizing of webpage
 
 ## Back End Tickets
 - No backend ticket items since the application resides in one file

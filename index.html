@@ -43,7 +43,6 @@
 				border-radius: 10px;
 				padding: 1em;
 				background-color: #9DD5D4;
-				height: 70%;
 				overflow: auto;
 			}
 			#wordLength, #dropDownTitle, #censoredTitle{
@@ -77,24 +76,27 @@
 				color:#089489;
 			}
 			::-webkit-scrollbar{
-				width: 10px;
+				width: 15px;
 			}
 			::-webkit-scrollbar-track {
 				background: #505050;
+				border-radius: 50px;
 			}
 			::-webkit-scrollbar-thumb {
 				background: #089489;
+				border-radius: 50px;
+				height:0.5em;
 			}
 			::-webkit-scrollbar-thumb:hover {
 				background: #089489;
 			}
 			.switch {
 				display: inline-block;
-				height: 18px;
+				height: 19px;
 				position: relative;
-				width: 34px;
+				width: 36px;
 				margin-left:2px;
-				margin-top:4px;
+				margin-top:3px;
 			  }
 			  .switch input {
 				display:none;
@@ -114,7 +116,7 @@
 				bottom: 2px;
 				content: "";
 				height: 15px;
-				left: 2px;
+				left: 3px;
 				position: absolute;
 				transition: .4s;
 				width: 15px;
@@ -168,7 +170,6 @@
 						  </div>
 					</td>
 				</tr>
-
 				<tr id='navigationButtons'>
 					<td><button type="button" onclick="randomDropDown()">Generate</button></td>
 					<td><button type="button" onclick="clearOutputText()">Clear</button></td>
@@ -221,7 +222,6 @@
 			//function for Drop-down list
 			function randomDropDown(){
 				if(document.getElementById('selection-0-50').selected){
-					console.log(document.getElementById('censoredCheck').checked)
 					numberOfOutputWords = generateWords(numberInterval(0,50));
 					outputText.innerText = numberOfOutputWords;
 				  } 
@@ -230,7 +230,6 @@
 					if(numberOfOutputWords.split(' ').length > 150){
 						numberOfOutputWords = makesParagraphs(numberOfOutputWords.split(' ')).join('\n\n');
 					}
-					console.log(numberOfOutputWords)
 					outputText.innerText = numberOfOutputWords;
 				} 
 				else if(document.getElementById('selection-201-500').selected){
